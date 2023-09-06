@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/auth/Login'; // Import the Login component
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import axios from 'axios';
+import AgentScreen from './components/AgentScreen';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -29,7 +30,11 @@ function App() {
         autoLoad={false}
         callback={responseFacebook}
       />
+      <div className="App">
+        <AgentScreen />
+      </div>
     </div>
+    
   );
 }
 
