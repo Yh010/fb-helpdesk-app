@@ -1,0 +1,4 @@
+module.exports = {
+  facebookAppID: '327089429768358',
+  facebookAppSecret: 'c5064b31ec6ab4664f1eea6a6358e69c',
+};
