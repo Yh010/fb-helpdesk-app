@@ -55,3 +55,8 @@ router.get('/facebook/callback', (req, res, next) => {
 });
 
 module.exports = router;
+
+//import controller
+const {facebooklogin} = require
+
+router.post('/facebooklogin',facebooklogin)
