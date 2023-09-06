@@ -16,11 +16,11 @@ app.post('/webhook', (req, res) => {
 
   // You can process the message and reply as needed
   // Use the facebook-chat-api library to send messages back
-  // Example: send a reply message
-  // api.sendMessage('Hello, this is your bot!', req.body.senderId);
+  api.sendMessage('Hello, this is your bot!', req.body.senderId);
 
   res.sendStatus(200); // Respond to the webhook with a 200 OK status
 });
+
 
 
 // Connect to MongoDB
@@ -86,4 +86,20 @@ app.use('/api', apiRoutes);
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(` Agent Server is running on port ${PORT}`);
+});
+
+const login = require('facebook-chat-api');
+
+// Define your Facebook credentials
+const credentials = {
+  email: 'your-facebook-email@example.com',
+  password: 'your-facebook-password',
+};
+
+// Authenticate with Facebook
+login(credentials, (err, api) => {
+  if (err) return console.error(err);
+
+  // Now you can use the `api` object to interact with the Messenger API
+  console.log('Connected to Facebook Messenger API');
 });
