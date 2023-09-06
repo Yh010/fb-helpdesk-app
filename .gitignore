@@ -1,2 +1,25 @@
 /node_modules
 /.history
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Ignore environment-specific files
+.env
+
+# Ignore npm package logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore IDE-specific files
+.idea/
