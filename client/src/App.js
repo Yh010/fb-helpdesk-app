@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/auth/Login'; // Import the Login component
 import FacebookLogin from '@greatsumini/react-facebook-login';
@@ -7,19 +7,26 @@ import AgentScreen from './components/AgentScreen';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false); // State to track if the user is logged in
 
-
-  const responseFacebook = (response) =>{
-    console.log(response);
+  const responseFacebook = (response) => {
     axios({
-      method: "POST",
-      url: "http://localhost:3000/api/facebooklogin",
-      data: {accessToken:response.accessToken, userId: response.userId}
-    }).then(response => {
-      console.log("facebook login success,client side", response);
+      method: 'GET',
+      url: 'http://localhost:3000/api/checkuser', // Use the correct endpoint
+      params: { facebookId: response.userId },
     })
+      .then((response) => {
+        if (response.data.userExists) {
+          setLoggedIn(true); // User is registered
+        } else {
+          console.log('User is not registered.');
+          // Handle this case as needed (e.g., show an error message)
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking user:', error);
+      });
   }
 
   return (
@@ -30,11 +37,12 @@ function App() {
         autoLoad={false}
         callback={responseFacebook}
       />
-      <div className="App">
-        <AgentScreen />
-      </div>
+      {loggedIn ? (
+        <div className="App">
+          <AgentScreen />
+        </div>
+      ) : null}
     </div>
-    
   );
 }
 

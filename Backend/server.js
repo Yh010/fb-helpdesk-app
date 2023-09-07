@@ -1,3 +1,4 @@
+// Import necessary modules and configurations
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -6,11 +7,9 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const keys = require('./config/keys'); // Load your app keys from a config file
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-
 const app = express();
 
-
-//Connect to MongoDB
+// Connect to MongoDB
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
@@ -19,7 +18,7 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: tru
     console.error('MongoDB connection error:', err);
   });
 
-//Set Up Sessions
+// Set Up Sessions
 const store = new MongoDBStore({
   uri: keys.mongoURI,
   collection: 'sessions',
@@ -37,7 +36,7 @@ app.use(
   })
 );
 
-//Initialize Passport.js
+// Initialize Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -79,10 +78,11 @@ passport.use(
   )
 );
 
-
 // Import and use route files
 const authRoutes = require('./routes/auth');
+const apiRoutes = require('./routes/api'); // Import your API route
 app.use('/auth', authRoutes);
+app.use('/api', apiRoutes); // Mount the API route at /api
 
 // Start the server
 const PORT = process.env.PORT || 3000;
